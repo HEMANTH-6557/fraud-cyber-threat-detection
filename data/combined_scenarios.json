@@ -1,0 +1,76 @@
+[
+  {
+    "scenario_id": "SCENARIO-ALPHA-APTTROJAN",
+    "title": "Multi-Vector Coordinated Account Takeover & Wire Fraud",
+    "description": "An attacker sends an executive spear-phishing lure to the finance administrator, conducts credential harvesting, logs in via SSH from an anomalous foreign IP, and initiates a high-value cryptocurrency wire transfer.",
+    "event_chain": [
+      {
+        "step": 1,
+        "domain": "EMAIL",
+        "ref_id": "EML-002",
+        "summary": "Urgent CEO wire transfer spear-phishing email received"
+      },
+      {
+        "step": 2,
+        "domain": "CYBER_AUTH",
+        "ref_id": "AUTH-2001",
+        "summary": "SSH brute force attempt from Russian IP 194.26.29.112"
+      },
+      {
+        "step": 3,
+        "domain": "CYBER_AUTH",
+        "ref_id": "AUTH-2004",
+        "summary": "Successful compromise login for finance_admin"
+      },
+      {
+        "step": 4,
+        "domain": "FRAUD",
+        "ref_id": "TXN-9901",
+        "summary": "$48,500 wire transfer to BitQuick Crypto Exchange from the same IP"
+      }
+    ],
+    "expected_outcome": {
+      "verdict": "CONFIRMED_MALICIOUS_ATTACK",
+      "risk_score_range": [
+        85,
+        100
+      ],
+      "mitre_tactics": [
+        "Initial Access",
+        "Credential Access",
+        "Impact"
+      ],
+      "mitre_techniques": [
+        "T1566 (Phishing)",
+        "T1110 (Brute Force)",
+        "T1657 (Financial Theft)"
+      ]
+    }
+  },
+  {
+    "scenario_id": "SCENARIO-BETA-FALSEPOSITIVE",
+    "title": "VIP Global Travel (Benign Anomaly)",
+    "description": "An executive travels internationally to an offshore branch and performs an authorized corporate procurement purchase. Initial velocity filter flags an anomaly, but multi-agent correlation determines legitimate business activity.",
+    "event_chain": [
+      {
+        "step": 1,
+        "domain": "CYBER_AUTH",
+        "ref_id": "AUTH-1002",
+        "summary": "VPN login via MFA TOTP"
+      },
+      {
+        "step": 2,
+        "domain": "FRAUD",
+        "ref_id": "TXN-8801",
+        "summary": "Small verified business merchant spend"
+      }
+    ],
+    "expected_outcome": {
+      "verdict": "BENIGN_FALSE_POSITIVE",
+      "risk_score_range": [
+        0,
+        30
+      ]
+    }
+  }
+]

@@ -1,0 +1,156 @@
+{
+  "evaluation_timestamp": "2026-10-19T09:48:51Z",
+  "evaluation_protocol": "Strictly Held-Out Independent Test Sets (20% Stratified Split)",
+  "total_test_samples_evaluated": 27938,
+  "composite_metrics": {
+    "macro_accuracy_percent": 99.63,
+    "macro_precision_percent": 99.33,
+    "macro_recall_percent": 99.35,
+    "macro_specificity_percent": 99.74,
+    "macro_f1_score_percent": 99.34,
+    "confusion_matrix": {
+      "TN": 20155,
+      "FP": 52,
+      "FN": 50,
+      "TP": 7681
+    }
+  },
+  "domain_evaluations": {
+    "financial_fraud": {
+      "dataset": "PaySim Financial Benchmark (50,000 samples)",
+      "test_samples": 10000,
+      "accuracy": 99.98,
+      "precision": 99.87,
+      "recall": 100.0,
+      "specificity": 99.98,
+      "f1_score": 99.93,
+      "roc_auc": 100.0,
+      "pr_auc": 100.0,
+      "brier_score": 9e-05,
+      "ece": 0.00031,
+      "confusion_matrix": {
+        "TN": 8498,
+        "FP": 2,
+        "FN": 0,
+        "TP": 1500
+      },
+      "latency_ms": 0.0109,
+      "confidence_intervals_95": {
+        "accuracy_95_ci": [
+          99.95,
+          100.0
+        ],
+        "f1_score_95_ci": [
+          99.83,
+          100.0
+        ],
+        "roc_auc_95_ci": [
+          100.0,
+          100.0
+        ]
+      }
+    },
+    "cyber_intrusion": {
+      "dataset": "KDD-Cup 99 DARPA Benchmark (33,273 samples)",
+      "test_samples": 6655,
+      "accuracy": 99.91,
+      "precision": 99.63,
+      "recall": 99.81,
+      "specificity": 99.93,
+      "f1_score": 99.72,
+      "roc_auc": 100.0,
+      "pr_auc": 100.0,
+      "brier_score": 0.00061,
+      "ece": 0.00063,
+      "confusion_matrix": {
+        "TN": 5576,
+        "FP": 4,
+        "FN": 2,
+        "TP": 1073
+      },
+      "latency_ms": 0.0186,
+      "confidence_intervals_95": {
+        "accuracy_95_ci": [
+          99.83,
+          99.97
+        ],
+        "f1_score_95_ci": [
+          99.5,
+          99.91
+        ],
+        "roc_auc_95_ci": [
+          100.0,
+          100.0
+        ]
+      }
+    },
+    "sql_injection": {
+      "dataset": "SQL Injection Exploit Benchmark (50,565 samples)",
+      "test_samples": 10113,
+      "accuracy": 99.73,
+      "precision": 99.74,
+      "recall": 99.67,
+      "specificity": 99.78,
+      "f1_score": 99.71,
+      "roc_auc": 99.96,
+      "pr_auc": 99.96,
+      "brier_score": 0.00234,
+      "ece": 0.00114,
+      "confusion_matrix": {
+        "TN": 5511,
+        "FP": 12,
+        "FN": 15,
+        "TP": 4575
+      },
+      "latency_ms": 0.1842,
+      "confidence_intervals_95": {
+        "accuracy_95_ci": [
+          99.62,
+          99.83
+        ],
+        "f1_score_95_ci": [
+          99.58,
+          99.81
+        ],
+        "roc_auc_95_ci": [
+          99.91,
+          99.99
+        ]
+      }
+    },
+    "phishing_threats": {
+      "dataset": "UCI Phishing Websites (5,849 samples)",
+      "test_samples": 1170,
+      "accuracy": 94.27,
+      "precision": 94.0,
+      "recall": 94.17,
+      "specificity": 94.37,
+      "f1_score": 94.09,
+      "roc_auc": 98.93,
+      "brier_score": 0.04165,
+      "ece": 0.02159,
+      "confusion_matrix": {
+        "TN": 570,
+        "FP": 34,
+        "FN": 33,
+        "TP": 533
+      }
+    }
+  },
+  "simulation_1000_benchmark": {
+    "total_events": 1000,
+    "benign_events": 800,
+    "attack_events": 200,
+    "accuracy_percent": 99.8,
+    "precision_percent": 100.0,
+    "recall_percent": 99.0,
+    "f1_score_percent": 99.5,
+    "noise_reduction_percent": 80.2,
+    "confusion_matrix": {
+      "TN": 800,
+      "FP": 0,
+      "FN": 2,
+      "TP": 198
+    }
+  }
+}

@@ -1,0 +1,56 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environments
+.venv/
+venv/
+ENV/
+env/
+
+# Environment Variables & Private Credentials
+.env
+.auth_credentials.json
+
+# Local databases and runtime state
+*.db-shm
+*.db-wal
+
+# IDE and Editor configuration
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Output logs and temporary test dumps
+*.log
+scratch/
+.pytest_cache/
+
+# Cloudflared Tunnel Binary
+tools/cloudflared.exe
+*.exe

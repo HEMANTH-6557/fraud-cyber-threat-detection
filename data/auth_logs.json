@@ -1,0 +1,103 @@
+[
+  {
+    "event_id": "AUTH-1001",
+    "timestamp": "2026-10-17T08:10:00",
+    "service": "ssh",
+    "user": "dev_alex",
+    "source_ip": "192.168.1.45",
+    "location": "San Francisco, US",
+    "status": "SUCCESS",
+    "auth_method": "publickey",
+    "label": "BENIGN"
+  },
+  {
+    "event_id": "AUTH-1002",
+    "timestamp": "2026-10-17T08:15:00",
+    "service": "corporate_vpn",
+    "user": "dev_priya",
+    "source_ip": "10.0.4.12",
+    "location": "Bangalore, IN",
+    "status": "SUCCESS",
+    "auth_method": "mfa_totp",
+    "label": "BENIGN"
+  },
+  {
+    "event_id": "AUTH-2001",
+    "timestamp": "2026-10-17T08:30:05",
+    "service": "ssh",
+    "user": "root",
+    "source_ip": "194.26.29.112",
+    "location": "St. Petersburg, RU",
+    "status": "FAILED",
+    "auth_method": "password",
+    "label": "SUSPICIOUS_BRUTE_FORCE"
+  },
+  {
+    "event_id": "AUTH-2002",
+    "timestamp": "2026-10-17T08:30:12",
+    "service": "ssh",
+    "user": "admin",
+    "source_ip": "194.26.29.112",
+    "location": "St. Petersburg, RU",
+    "status": "FAILED",
+    "auth_method": "password",
+    "label": "SUSPICIOUS_BRUTE_FORCE"
+  },
+  {
+    "event_id": "AUTH-2003",
+    "timestamp": "2026-10-17T08:30:19",
+    "service": "ssh",
+    "user": "ubuntu",
+    "source_ip": "194.26.29.112",
+    "location": "St. Petersburg, RU",
+    "status": "FAILED",
+    "auth_method": "password",
+    "label": "SUSPICIOUS_BRUTE_FORCE"
+  },
+  {
+    "event_id": "AUTH-2004",
+    "timestamp": "2026-10-17T08:30:27",
+    "service": "ssh",
+    "user": "finance_admin",
+    "source_ip": "194.26.29.112",
+    "location": "St. Petersburg, RU",
+    "status": "SUCCESS",
+    "auth_method": "password",
+    "label": "COMPROMISED_CREDENTIAL_ACCESS"
+  },
+  {
+    "event_id": "AUTH-3001",
+    "timestamp": "2026-10-17T08:45:00",
+    "service": "web_api",
+    "user": "anonymous",
+    "source_ip": "45.154.255.89",
+    "location": "Frankfurt, DE",
+    "status": "FAILED",
+    "endpoint": "/api/v1/auth/login",
+    "payload": "' UNION SELECT username, password_hash FROM users--",
+    "user_agent": "sqlmap/1.7#stable",
+    "label": "SQL_INJECTION"
+  },
+  {
+    "event_id": "AUTH-4001",
+    "timestamp": "2026-10-17T09:00:00",
+    "service": "okta_sso",
+    "user": "cfo_sarah",
+    "source_ip": "72.229.28.185",
+    "location": "New York, US",
+    "status": "SUCCESS",
+    "auth_method": "push_verify",
+    "label": "BENIGN"
+  },
+  {
+    "event_id": "AUTH-4002",
+    "timestamp": "2026-10-17T09:14:00",
+    "service": "okta_sso",
+    "user": "cfo_sarah",
+    "source_ip": "185.220.101.5",
+    "location": "Bucharest, RO",
+    "status": "SUCCESS",
+    "auth_method": "password_only_bypass",
+    "label": "IMPOSSIBLE_TRAVEL_ATO"
+  }
+]

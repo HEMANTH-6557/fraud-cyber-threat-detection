@@ -1,0 +1,7 @@
+tx_id,timestamp,account_id,user_name,amount,currency,merchant,merchant_category,location_city,location_country,ip_address,device_id,is_flagged_ground_truth,anomaly_type
+TXN-8801,2026-10-17T09:05:00,ACC-4091,dev_alex,42.5,USD,Starbucks Coffee,Food & Beverage,San Francisco,US,192.168.1.45,DEV-MAC-8812,False,NONE
+TXN-8802,2026-10-17T09:15:00,ACC-4091,dev_alex,89.9,USD,Whole Foods Market,Groceries,San Francisco,US,192.168.1.45,DEV-MAC-8812,False,NONE
+TXN-9901,2026-10-17T09:32:00,ACC-9922,finance_admin,48500.0,USD,BitQuick Crypto Exchange,Cryptocurrency & Wire Transfer,St. Petersburg,RU,194.26.29.112,DEV-UNKNOWN-992,True,HIGH_VALUE_DRAIN_AFTER_BREACH
+TXN-9902,2026-10-17T09:35:10,ACC-7741,mark_watson,2.0,USD,Digital Goods MicroStore,Digital Goods,Miami,US,103.251.167.20,DEV-BOT-01,True,VELOCITY_CARD_TESTING
+TXN-9903,2026-10-17T09:35:25,ACC-7741,mark_watson,499.0,USD,LuxJewelry Online,Luxury Goods,Miami,US,103.251.167.20,DEV-BOT-01,True,VELOCITY_CARD_TESTING
+TXN-9904,2026-10-17T10:20:00,ACC-5520,cfo_sarah,15000.0,EUR,Offshore Private Banking Ltd,Wire Transfer,Bucharest,RO,185.220.101.5,DEV-TOR-BROWSER,True,ACCOUNT_TAKEOVER_TRANSFER

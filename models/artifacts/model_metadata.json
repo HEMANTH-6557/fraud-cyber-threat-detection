@@ -1,0 +1,159 @@
+{
+  "training_timestamp": "2026-10-19T09:48:23Z",
+  "total_training_wallclock_seconds": 27.94,
+  "hardware_environment": {
+    "platform": "win32",
+    "logical_cpu_cores": 12,
+    "gpu_device": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+    "ram_capacity_gb": 15.64
+  },
+  "models": {
+    "financial_fraud": {
+      "domain": "FINANCIAL",
+      "dataset_name": "PaySim Financial Fraud Detection",
+      "sample_counts": {
+        "total": 50000,
+        "train": 32000,
+        "val": 8000,
+        "test": 10000
+      },
+      "best_algorithm": "RandomForestClassifier",
+      "calibration_method": "Platt Sigmoid Scaling (3-Fold CV on Dev set)",
+      "test_metrics": {
+        "accuracy": 99.98,
+        "precision": 99.87,
+        "recall": 100.0,
+        "specificity": 99.98,
+        "f1_score": 99.93,
+        "roc_auc": 100.0,
+        "pr_auc": 100.0,
+        "brier_score": 0.0001,
+        "expected_calibration_error": 0.0003,
+        "confusion_matrix": {
+          "TN": 8498,
+          "FP": 2,
+          "FN": 0,
+          "TP": 1500
+        },
+        "inference_latency_ms_per_sample": 0.0149
+      }
+    },
+    "cyber_intrusion": {
+      "domain": "CYBER_LOG",
+      "dataset_name": "KDD-Cup 99 Intrusion Telemetry",
+      "sample_counts": {
+        "total": 33273,
+        "train": 21294,
+        "val": 5324,
+        "test": 6655
+      },
+      "best_algorithm": "RandomForestClassifier",
+      "calibration_method": "Platt Sigmoid Scaling (3-Fold CV on Dev set)",
+      "test_metrics": {
+        "accuracy": 99.91,
+        "precision": 99.63,
+        "recall": 99.81,
+        "specificity": 99.93,
+        "f1_score": 99.72,
+        "roc_auc": 100.0,
+        "pr_auc": 100.0,
+        "brier_score": 0.0006,
+        "expected_calibration_error": 0.0006,
+        "confusion_matrix": {
+          "TN": 5576,
+          "FP": 4,
+          "FN": 2,
+          "TP": 1073
+        },
+        "inference_latency_ms_per_sample": 0.0217
+      }
+    },
+    "sql_injection": {
+      "domain": "CYBER_SQLI",
+      "dataset_name": "SQL Injection Exploit Benchmark (SQL_I)",
+      "sample_counts": {
+        "total": 50565,
+        "train": 32361,
+        "val": 8091,
+        "test": 10113
+      },
+      "best_algorithm": "TF-IDF + RandomForest",
+      "calibration_method": "Platt Sigmoid Scaling (3-Fold CV on Dev set)",
+      "test_metrics": {
+        "accuracy": 99.73,
+        "precision": 99.74,
+        "recall": 99.67,
+        "specificity": 99.78,
+        "f1_score": 99.71,
+        "roc_auc": 99.96,
+        "pr_auc": 99.96,
+        "brier_score": 0.0023,
+        "expected_calibration_error": 0.0011,
+        "confusion_matrix": {
+          "TN": 5511,
+          "FP": 12,
+          "FN": 15,
+          "TP": 4575
+        },
+        "inference_latency_ms_per_sample": 0.1958
+      }
+    },
+    "phishing_email": {
+      "domain": "EMAIL_PHISHING",
+      "dataset_name": "UCI PhishingWebsites & Spambase",
+      "sample_counts": {
+        "phishing_websites": {
+          "total": 5849,
+          "train": 3743,
+          "val": 936,
+          "test": 1170
+        },
+        "spambase_emails": {
+          "total": 4210,
+          "train": 2694,
+          "val": 674,
+          "test": 842
+        },
+        "total_combined": 10059
+      },
+      "best_algorithm": "RandomForestClassifier (StandardScaled)",
+      "calibration_method": "Platt Sigmoid Scaling (3-Fold CV on Dev set)",
+      "test_metrics_phishing_websites": {
+        "accuracy": 94.27,
+        "precision": 94.0,
+        "recall": 94.17,
+        "specificity": 94.37,
+        "f1_score": 94.09,
+        "roc_auc": 98.93,
+        "pr_auc": 98.89,
+        "brier_score": 0.0417,
+        "expected_calibration_error": 0.0216,
+        "confusion_matrix": {
+          "TN": 570,
+          "FP": 34,
+          "FN": 33,
+          "TP": 533
+        },
+        "inference_latency_ms_per_sample": 0.0702
+      },
+      "test_metrics_spambase_emails": {
+        "accuracy": 93.94,
+        "precision": 92.28,
+        "recall": 92.56,
+        "specificity": 94.86,
+        "f1_score": 92.42,
+        "roc_auc": 98.8,
+        "pr_auc": 98.19,
+        "brier_score": 0.0413,
+        "expected_calibration_error": 0.034,
+        "confusion_matrix": {
+          "TN": 480,
+          "FP": 26,
+          "FN": 25,
+          "TP": 311
+        },
+        "inference_latency_ms_per_sample": 0.068
+      }
+    }
+  }
+}

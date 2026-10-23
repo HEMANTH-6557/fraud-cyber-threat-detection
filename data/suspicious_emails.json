@@ -1,0 +1,63 @@
+[
+  {
+    "email_id": "EML-001",
+    "subject": "Weekly Engineering Sprint Retrospective",
+    "sender_name": "Dave Product Lead",
+    "sender_email": "dave@corp-enterprise.internal",
+    "recipient_email": "team@corp-enterprise.internal",
+    "body": "Hi team, please find attached the retrospective summary notes from Friday's sprint retro. Great job on shipping the v2.4 release on time!",
+    "attachments": [
+      "sprint_retro_oct.pdf"
+    ],
+    "urls": [
+      "https://internal.wiki.corp-enterprise.internal/retro/2026-10"
+    ],
+    "headers": {
+      "spf": "PASS",
+      "dkim": "PASS",
+      "dmarc": "PASS",
+      "reply_to": "dave@corp-enterprise.internal"
+    },
+    "ground_truth_label": "BENIGN"
+  },
+  {
+    "email_id": "EML-002",
+    "subject": "CRITICAL: Urgent Wire Transfer for Confidential Project Triton",
+    "sender_name": "CEO Jonathan Reynolds",
+    "sender_email": "ceo-jonathan@corp-ent\u0113rprise-mgmt.com",
+    "recipient_email": "finance_admin@corp-enterprise.internal",
+    "body": "I am in an all-day confidential board meeting and cannot take calls. We need an urgent vendor acquisition escrow wire transfer of $48,500 processed immediately before market close today. Transfer details attached below. Keep this strictly between us.",
+    "attachments": [
+      "wire_escrow_details.pdf.exe"
+    ],
+    "urls": [
+      "http://secure-corporate-escrow-portal.top/auth?token=x991"
+    ],
+    "headers": {
+      "spf": "FAIL",
+      "dkim": "NONE",
+      "dmarc": "FAIL",
+      "reply_to": "overseas-escrow-desk@protonmail.com"
+    },
+    "ground_truth_label": "PHISHING_BEC"
+  },
+  {
+    "email_id": "EML-003",
+    "subject": "Action Required: Microsoft 365 Password Expiration in 24 Hours",
+    "sender_name": "IT Helpdesk Admin",
+    "sender_email": "security-support@login-m365-verify.cloud",
+    "recipient_email": "cfo_sarah@corp-enterprise.internal",
+    "body": "Your corporate Microsoft account credentials will expire today. Click the button below to retain your current password and avoid service disruption.",
+    "attachments": [],
+    "urls": [
+      "https://login-m365-verify.cloud/adfs/ls/?client_id=corp_auth"
+    ],
+    "headers": {
+      "spf": "SOFTFAIL",
+      "dkim": "NONE",
+      "dmarc": "FAIL",
+      "reply_to": "harvest@darknet-c2.net"
+    },
+    "ground_truth_label": "PHISHING_CREDENTIAL_HARVEST"
+  }
+]
