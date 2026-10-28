@@ -2092,25 +2092,13 @@ elif selected_nav == "📄 Module 9: Final Report Generation & Export":
                 use_container_width=True
             )
         with d_col5:
-            pdf_report_path = os.path.join(ROOT_DIR, "COMPLETE_PROJECT_ANALYSIS_AND_VIVA_REPORT.pdf")
-            if os.path.exists(pdf_report_path):
-                with open(pdf_report_path, "rb") as f:
-                    viva_pdf_bytes = f.read()
-                st.download_button(
-                    label="📥 Viva Manual (PDF)",
-                    data=viva_pdf_bytes,
-                    file_name="COMPLETE_PROJECT_ANALYSIS_AND_VIVA_REPORT.pdf",
-                    mime="application/pdf",
-                    use_container_width=True
-                )
-            else:
-                st.download_button(
-                    label="📄 Download PDF (.pdf)",
-                    data=pdf_bytes,
-                    file_name=f"{inv_filename}_REPORT.pdf",
-                    mime="application/pdf",
-                    use_container_width=True
-                )
+            st.download_button(
+                label="📄 Download PDF (.pdf)",
+                data=pdf_bytes,
+                file_name=f"{inv_filename}_REPORT.pdf",
+                mime="application/pdf",
+                use_container_width=True
+            )
 
         st.markdown("---")
         st.markdown("### 🔍 Live Forensic Report Preview:")
