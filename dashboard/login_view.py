@@ -48,7 +48,7 @@ def render_login_page():
 <style>
 /* Overall Page Background & Typography */
 .stApp {
-    background: linear-gradient(135deg, #070c14 0%, #0d1522 50%, #0a111c 100%);
+    background-color: #F4E4BC;
     font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
 }
 
@@ -91,14 +91,14 @@ header[data-testid="stHeader"] {
 }
 
 .brand-badge-title {
-    color: #ffffff;
+    color: #ffffff !important;
     font-weight: 700;
     font-size: 1.15em;
     letter-spacing: -0.2px;
 }
 
 .brand-badge-sub {
-    color: #2dd4bf;
+    color: #2dd4bf !important;
     font-size: 0.72em;
     font-weight: 700;
     letter-spacing: 1.2px;
@@ -112,7 +112,7 @@ header[data-testid="stHeader"] {
 }
 
 .project-kicker {
-    color: #2dd4bf;
+    color: #2dd4bf !important;
     font-size: 0.82em;
     font-weight: 700;
     letter-spacing: 2px;
@@ -120,17 +120,32 @@ header[data-testid="stHeader"] {
     margin-bottom: 12px;
 }
 
-.project-main-heading {
-    color: #ffffff;
-    font-size: 2.1em;
+.project-main-heading,
+div.brand-panel-card h1,
+.stApp div.brand-panel-card h1 {
+    color: #2dd4bf !important;
+    background: linear-gradient(90deg, #2dd4bf 0%, #38bdf8 100%) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    font-size: 1.85em;
     font-weight: 800;
-    line-height: 1.25;
+    line-height: 1.35;
     margin: 0;
     letter-spacing: -0.5px;
 }
 
-.project-tagline {
-    color: #94a3b8;
+.project-main-heading span,
+div.brand-panel-card h1 span,
+.stApp div.brand-panel-card h1 span {
+    color: #2dd4bf !important;
+    background: linear-gradient(90deg, #2dd4bf 0%, #38bdf8 100%) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+}
+
+.project-tagline,
+div.brand-panel-card p {
+    color: #cbd5e1 !important;
     font-size: 0.95em;
     line-height: 1.6;
     margin: 20px 0 0 0;
@@ -141,7 +156,7 @@ header[data-testid="stHeader"] {
     padding-top: 20px;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
     font-size: 0.82em;
-    color: #64748b;
+    color: #94a3b8 !important;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -153,7 +168,7 @@ header[data-testid="stHeader"] {
 }
 
 .auth-header-title {
-    color: #ffffff;
+    color: #0f172a !important;
     font-weight: 800;
     font-size: 1.9em;
     margin: 0 0 6px 0;
@@ -161,16 +176,84 @@ header[data-testid="stHeader"] {
 }
 
 .auth-header-desc {
-    color: #94a3b8;
-    font-size: 0.92em;
+    color: #334155 !important;
+    font-size: 0.95em;
+    font-weight: 500;
     margin: 0 0 24px 0;
 }
 
-/* Input Customizations */
+/* Input Customizations - High Contrast & Full Visibility */
 div[data-testid="stTextInput"] label p {
-    color: #e2e8f0 !important;
+    color: #0f172a !important;
+    font-weight: 700 !important;
+    font-size: 0.92em !important;
+}
+
+div[data-testid="stTextInput"] input {
+    color: #0f172a !important;
+    -webkit-text-fill-color: #0f172a !important;
     font-weight: 600 !important;
-    font-size: 0.9em !important;
+    font-size: 0.98em !important;
+    border: 1.5px solid #475569 !important;
+    border-radius: 8px !important;
+}
+
+/* Browser Autofill Handling (Chrome / Edge / Safari / Firefox) */
+div[data-testid="stTextInput"] input:-webkit-autofill,
+div[data-testid="stTextInput"] input:-webkit-autofill:hover,
+div[data-testid="stTextInput"] input:-webkit-autofill:focus,
+div[data-testid="stTextInput"] input:-webkit-autofill:active {
+    -webkit-text-fill-color: #0f172a !important;
+    color: #0f172a !important;
+    font-weight: 600 !important;
+}
+
+/* Password Bullets / Masked Text */
+div[data-testid="stTextInput"] input[type="password"] {
+    color: #0f172a !important;
+    -webkit-text-fill-color: #0f172a !important;
+    font-weight: 700 !important;
+    letter-spacing: 2px !important;
+}
+
+div[data-testid="stTextInput"] input[type="password"]:-webkit-autofill,
+div[data-testid="stTextInput"] input[type="password"]:-webkit-autofill:hover,
+div[data-testid="stTextInput"] input[type="password"]:-webkit-autofill:focus {
+    -webkit-text-fill-color: #0f172a !important;
+    color: #0f172a !important;
+    font-weight: 700 !important;
+    letter-spacing: 2px !important;
+}
+
+div[data-testid="stTextInput"] input::placeholder {
+    color: #64748b !important;
+    -webkit-text-fill-color: #64748b !important;
+    opacity: 1 !important;
+    letter-spacing: normal !important;
+    font-weight: 400 !important;
+}
+
+div[data-testid="stTextInput"] input:focus {
+    border-color: #2dd4bf !important;
+    box-shadow: 0 0 0 2px rgba(45, 212, 191, 0.25) !important;
+}
+
+/* Password Toggle Eye Icon */
+div[data-testid="stTextInput"] [data-baseweb="input"] button,
+div[data-testid="stTextInput"] button {
+    background: transparent !important;
+    border: none !important;
+}
+
+div[data-testid="stTextInput"] [data-baseweb="input"] button svg,
+div[data-testid="stTextInput"] button svg {
+    fill: #0f172a !important;
+    color: #0f172a !important;
+}
+
+div[data-testid="stCheckbox"] label p {
+    color: #0f172a !important;
+    font-weight: 600 !important;
 }
 
 /* Primary Button */
@@ -178,25 +261,38 @@ div.stButton > button[kind="primary"] {
     background-color: #0d9488 !important;
     border-color: #0d9488 !important;
     color: #ffffff !important;
-    font-weight: 600 !important;
+    font-weight: 700 !important;
     border-radius: 8px !important;
-    padding: 0.6rem 1rem !important;
-    font-size: 1.0em !important;
+    padding: 0.65rem 1rem !important;
+    font-size: 1.05em !important;
     margin-top: 10px !important;
+    letter-spacing: 0.3px !important;
     transition: all 0.2s ease !important;
 }
 
 div.stButton > button[kind="primary"]:hover {
     background-color: #0f766e !important;
     border-color: #0f766e !important;
+    color: #ffffff !important;
     box-shadow: 0 4px 15px rgba(13, 148, 136, 0.4) !important;
+}
+
+/* Expander for Forgot Password */
+div[data-testid="stExpander"] details summary p {
+    color: #0f172a !important;
+    font-weight: 700 !important;
+}
+
+div[data-testid="stExpander"] details summary svg {
+    fill: #0f172a !important;
+    color: #0f172a !important;
 }
 
 .security-footer-note {
     text-align: center;
     margin-top: 24px;
-    font-size: 0.82em;
-    color: #64748b;
+    font-size: 0.88em;
+    color: #334155;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -209,9 +305,9 @@ div.stButton > button[kind="primary"]:hover {
     # ==========================================================================
     with left_col:
         st.markdown(
-            '<div style="'
+            '<div class="brand-panel-card" style="'
             'background: linear-gradient(165deg, #071e22 0%, #0c2b2e 45%, #09171f 100%); '
-            'padding: 48px 40px; '
+            'padding: 38px 34px; '
             'height: 100%; '
             'min-height: 520px; '
             'display: flex; '
@@ -220,14 +316,17 @@ div.stButton > button[kind="primary"]:hover {
             'border-radius: 18px; '
             'border: 1.5px solid rgba(45, 212, 191, 0.3); '
             'box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.7);">'
-            '<div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">'
+            '<div style="display: flex; align-items: center; gap: 12px; margin-bottom: 22px;">'
             '<span style="font-size: 32px; filter: drop-shadow(0 2px 8px rgba(45,212,191,0.4));">🛡️</span>'
             '<span style="color: #2dd4bf; font-size: 0.85em; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;">Cybersecurity Operations Center</span>'
             '</div>'
-            '<div style="border-left: 4px solid #2dd4bf; padding-left: 22px; margin: 16px 0 24px 0;">'
-            '<h1 style="'
-            'color: #ffffff; '
-            'font-size: 2.3em; '
+            '<div style="border-left: 4px solid #2dd4bf; padding-left: 20px; margin: 14px 0 20px 0;">'
+            '<h1 class="project-main-heading" style="'
+            'color: #2dd4bf !important; '
+            'background: linear-gradient(90deg, #2dd4bf 0%, #38bdf8 100%) !important; '
+            '-webkit-background-clip: text !important; '
+            '-webkit-text-fill-color: transparent !important; '
+            'font-size: 1.85em; '
             'font-weight: 800; '
             'line-height: 1.35; '
             'margin: 0; '
@@ -235,10 +334,10 @@ div.stButton > button[kind="primary"]:hover {
             'font-family: -apple-system, BlinkMacSystemFont, \'Segoe UI\', Roboto, \'Inter\', sans-serif;">'
             'An Autonomous Multi-Agent Framework<br>'
             'for Fraud and Cyber Threat Detection<br>'
-            '<span style="background: linear-gradient(90deg, #2dd4bf, #38bdf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Using Large Language Models</span>'
+            '<span style="color: #2dd4bf !important; background: linear-gradient(90deg, #2dd4bf 0%, #38bdf8 100%) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important;">Using Large Language Models</span>'
             '</h1>'
             '</div>'
-            '<p style="color: #94a3b8; font-size: 0.98em; line-height: 1.6; margin: 20px 0 0 0;">'
+            '<p style="color: #cbd5e1 !important; font-size: 0.95em; line-height: 1.55; margin: 16px 0 0 0;">'
             'Two-Tier Collaborative AI Architecture for Real-Time Threat Ingestion, Fast ML Screening, and Autonomous Multi-Agent Forensic Investigation.'
             '</p>'
             '</div>',
@@ -306,7 +405,7 @@ div.stButton > button[kind="primary"]:hover {
 
         # Dedicated Forgot Password / Recovery Flow
         with st.expander("🔑 Forgot Password?"):
-            st.markdown("<small style='color: #94a3b8;'>Enter your registered email address to receive a 6-digit verification code directly to your Gmail inbox.</small>", unsafe_allow_html=True)
+            st.markdown("<small style='color: #334155 !important; font-size: 0.9em; font-weight: 500;'>Enter your registered email address to receive a 6-digit verification code directly to your Gmail inbox.</small>", unsafe_allow_html=True)
 
             fp_email = st.text_input("Enter Registered Email Address", placeholder="hemanthhemu6557@gmail.com", key="fp_email_field")
             if st.button("📲 Send Verification Code to Email", use_container_width=True, key="btn_fp_send_code"):
@@ -359,25 +458,20 @@ div.stButton > button[kind="primary"]:hover {
         # Restrained Security Notice
         st.markdown("""
 <div class="security-footer-note">
-    🔒 Protected access to your AI security investigation workspace.<br>
-    <span style="font-size: 0.85em; color: #475569;">Authorized Personnel Only • Audit Log Active</span>
+    <span style="color: #334155 !important; font-weight: 500;">🔒 Protected access to your AI security investigation workspace.</span><br>
+    <span style="font-size: 0.85em; color: #1e293b !important; font-weight: 600;">Authorized Personnel Only • Audit Log Active</span>
 </div>
 """, unsafe_allow_html=True)
 
 
 def render_auth_sidebar():
     """Renders authenticated operator status and controls in the sidebar."""
-    user = st.session_state.get("user_info", {})
-    user_name = user.get("name", "Hemanth Gowda T")
-    auth_method = user.get("auth_method", "Enterprise Workspace")
-
-    st.sidebar.markdown(f"""
+    st.sidebar.markdown("""
 <div style="background-color: #0f172a; border: 1px solid #1e293b; border-left: 4px solid #2dd4bf; border-radius: 8px; padding: 12px; margin-bottom: 14px;">
     <div style="display: flex; align-items: center; justify-content: space-between;">
-        <b style="color: #2dd4bf; font-size: 0.85em;">🟢 ACTIVE SESSION</b>
+        <b style="color: #2dd4bf; font-size: 0.85em; letter-spacing: 0.5px;">🟢 ACTIVE SESSION</b>
     </div>
-    <div style="color: #f8fafc; font-weight: 600; font-size: 1.05em; margin-top: 4px;">{user_name}</div>
-    <div style="color: #94a3b8; font-size: 0.8em;">SOC Lead Operator | {auth_method}</div>
+    <div style="color: #f8fafc; font-weight: 700; font-size: 1.05em; margin-top: 4px;">SOC Lead Operator</div>
 </div>
 """, unsafe_allow_html=True)
 

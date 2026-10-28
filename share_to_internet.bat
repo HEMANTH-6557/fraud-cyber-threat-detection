@@ -2,7 +2,7 @@
 title Autonomous Multi-Agent SOC Framework - Public Internet Tunnel
 echo ===============================================================================
 echo  Autonomous Multi-Agent Framework for Fraud and Cyber Threat Detection
-echo  Launching Live Public HTTPS Tunnel via Cloudflare Edge Network
+echo  Public Tunnel Gateway
 echo ===============================================================================
 echo.
 
@@ -10,21 +10,31 @@ echo [1/2] Verifying local Streamlit dashboard on port 8501...
 netstat -ano | findstr 8501 | findstr LISTENING >nul
 if %ERRORLEVEL% NEQ 0 (
     echo [INFO] Starting Streamlit in background...
-    start /b .venv\Scripts\streamlit.exe run dashboard\app.py
-    timeout /t 3 /nobreak >nul
+    start /b .venv\Scripts\streamlit.exe run dashboard\app.py --server.port 8501 --server.headless true
+    timeout /t 5 /nobreak >nul
 ) else (
-    echo [INFO] Local Streamlit dashboard is already active on port 8501.
+    echo [INFO] Local Streamlit dashboard is active on port 8501.
 )
 
 echo.
-echo [2/2] Opening Cloudflare Secure Public Tunnel to the Internet...
-echo.
 echo ===============================================================================
-echo  A public HTTPS link (https://xxxx.trycloudflare.com) will appear below.
-echo  Share this URL with faculty, examiners, and evaluators anywhere in the world!
-echo  (Press Ctrl+C to close the public internet tunnel when finished)
+echo  SELECT PUBLIC TUNNEL PROVIDER:
+echo    [1] Jio-Friendly Tunnel (Works on Reliance Jio, Airtel, Vi, JioFiber)
+echo    [2] Cloudflare Edge Tunnel (Cloudflare CDN - requires Private DNS on Jio)
 echo ===============================================================================
-echo.
+set /p choice="Enter choice [1 or 2, default is 1]: "
+if "%choice%"=="2" goto cloudflare
 
-.\tools\cloudflared.exe tunnel --url http://127.0.0.1:8501
+:pinggy
+echo.
+echo [2/2] Launching Jio-Compatible Tunnel...
+ssh -i .\tools\id_ed25519 -o StrictHostKeyChecking=no -p 443 -R0:127.0.0.1:8501 a.pinggy.io
+goto end
+
+:cloudflare
+echo.
+echo [2/2] Launching Cloudflare Edge Tunnel...
+.\tools\cloudflared.exe tunnel --protocol http2 --url http://127.0.0.1:8501
+
+:end
 pause

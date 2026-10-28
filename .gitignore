@@ -54,3 +54,10 @@ scratch/
 # Cloudflared Tunnel Binary
 tools/cloudflared.exe
 *.exe
+
+# SSH Keys & Tunnel Files
+tools/id_*
+id_*
+*.out
+*.txt
+!requirements.txt

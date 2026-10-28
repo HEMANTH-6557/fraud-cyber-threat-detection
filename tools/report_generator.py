@@ -4,6 +4,7 @@ Exports structured incident dossiers, mitigation playbooks, and telemetry audits
 in TXT, Markdown, CSV, and print-ready HTML/PDF formats.
 """
 
+import io
 import json
 from datetime import datetime
 from typing import Dict, Any, List, Optional
@@ -213,3 +214,152 @@ class ForensicReportGenerator:
 </html>
 """
         return html
+
+    @staticmethod
+    def generate_investigation_pdf(inv_data: Dict[str, Any], event_data: Optional[Dict[str, Any]] = None) -> bytes:
+        """Generates an academic, publication-quality forensic PDF report for the incident investigation."""
+        try:
+            from reportlab.lib.pagesizes import letter
+            from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, KeepTogether
+            from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+            from reportlab.lib import colors
+
+            buf = io.BytesIO()
+            doc = SimpleDocTemplate(buf, pagesize=letter, leftMargin=36, rightMargin=36, topMargin=36, bottomMargin=36)
+            styles = getSampleStyleSheet()
+
+            inv_id = str(inv_data.get("investigation_id", "INV-UNKNOWN"))
+            verdict = str(inv_data.get("verdict", "PENDING"))
+            is_mal = "MALICIOUS" in verdict.upper()
+            v_color = colors.HexColor("#dc2626") if is_mal else colors.HexColor("#16a34a")
+            score = inv_data.get("composite_threat_score", 0)
+            confidence = float(inv_data.get("overall_confidence", 0.0)) * 100
+            summary = inv_data.get("executive_summary", "No summary provided.")
+            timestamp = str(inv_data.get("timestamp", datetime.utcnow().isoformat() + "Z"))
+
+            title_style = ParagraphStyle('TitleStyle', parent=styles['Heading1'], fontSize=16, textColor=colors.HexColor("#0f172a"), spaceAfter=4)
+            sub_style = ParagraphStyle('SubStyle', parent=styles['Normal'], fontSize=8.5, textColor=colors.HexColor("#64748b"), spaceAfter=12)
+            h2_style = ParagraphStyle('H2Style', parent=styles['Heading2'], fontSize=11, textColor=colors.HexColor("#0284c7"), spaceBefore=10, spaceAfter=4)
+            body_style = ParagraphStyle('BodyStyle', parent=styles['Normal'], fontSize=8.5, leading=12, textColor=colors.HexColor("#1e293b"))
+            cell_bold = ParagraphStyle('CellBold', parent=styles['Normal'], fontSize=8, leading=10, fontName="Helvetica-Bold")
+            cell_norm = ParagraphStyle('CellNorm', parent=styles['Normal'], fontSize=8, leading=10)
+
+            elements = []
+
+            # Document Header
+            elements.append(Paragraph("🛡️ Autonomous SOC Incident Forensic Dossier", title_style))
+            elements.append(Paragraph(
+                f"<b>Project Title:</b> An Autonomous Multi-Agent Framework for Fraud & Cyber Threat Detection Using LLMs<br/>"
+                f"<b>Investigation Reference:</b> {inv_id} &nbsp;|&nbsp; <b>Alert ID:</b> {inv_data.get('alert_id', 'N/A')} &nbsp;|&nbsp; <b>Timestamp:</b> {timestamp}",
+                sub_style
+            ))
+
+            # Verdict Box Table
+            verdict_text = f"<font color='white'><b>VERDICT: {verdict}</b> &nbsp;|&nbsp; Threat Score: {score}/100 &nbsp;|&nbsp; Confidence: {confidence:.1f}%</font>"
+            verdict_table = Table([[Paragraph(verdict_text, ParagraphStyle('V', parent=styles['Normal'], fontSize=10, textColor=colors.white))]], colWidths=[540])
+            verdict_table.setStyle(TableStyle([
+                ('BACKGROUND', (0, 0), (-1, -1), v_color),
+                ('TOPPADDING', (0, 0), (-1, -1), 6),
+                ('BOTTOMPADDING', (0, 0), (-1, -1), 6),
+                ('LEFTPADDING', (0, 0), (-1, -1), 12),
+                ('RIGHTPADDING', (0, 0), (-1, -1), 12),
+            ]))
+            elements.append(verdict_table)
+            elements.append(Spacer(1, 10))
+
+            # Executive Forensic Summary
+            elements.append(Paragraph("Executive Forensic Summary", h2_style))
+            elements.append(Paragraph(str(summary), body_style))
+            elements.append(Spacer(1, 8))
+
+            # MITRE Tactics & Techniques
+            tactics = inv_data.get("mitre_tactics") or []
+            techs = inv_data.get("mitre_techniques") or []
+            if isinstance(tactics, str):
+                try: tactics = json.loads(tactics)
+                except Exception: tactics = [tactics]
+            if isinstance(techs, str):
+                try: techs = json.loads(techs)
+                except Exception: techs = [techs]
+
+            elements.append(Paragraph("MITRE ATT&CK Mapping", h2_style))
+            mitre_info = f"<b>Tactics:</b> {', '.join(tactics) if tactics else 'None'}<br/><b>Techniques:</b> {', '.join(techs) if techs else 'None'}"
+            elements.append(Paragraph(mitre_info, body_style))
+            elements.append(Spacer(1, 8))
+
+            # Agent Consensus Votes Table
+            votes = inv_data.get("agent_votes") or {}
+            if isinstance(votes, str):
+                try: votes = json.loads(votes)
+                except Exception: votes = {}
+            if votes:
+                elements.append(Paragraph("Specialized Agent Consensus Breakdown", h2_style))
+                vote_data = [[Paragraph("Agent Name", cell_bold), Paragraph("Consensus Verdict / Findings", cell_bold)]]
+                for ag_name, ag_vote in votes.items():
+                    vote_data.append([Paragraph(str(ag_name), cell_norm), Paragraph(str(ag_vote), cell_norm)])
+                t_vote = Table(vote_data, colWidths=[200, 340])
+                t_vote.setStyle(TableStyle([
+                    ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor("#f1f5f9")),
+                    ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor("#cbd5e1")),
+                    ('TOPPADDING', (0, 0), (-1, -1), 4),
+                    ('BOTTOMPADDING', (0, 0), (-1, -1), 4),
+                ]))
+                elements.append(t_vote)
+                elements.append(Spacer(1, 8))
+
+            # Containment Playbook Table
+            playbook = inv_data.get("containment_playbook") or []
+            if isinstance(playbook, str):
+                try: playbook = json.loads(playbook)
+                except Exception: playbook = []
+            if playbook:
+                elements.append(Paragraph("Automated Incident Containment Playbook", h2_style))
+                pb_data = [[Paragraph("#", cell_bold), Paragraph("Priority", cell_bold), Paragraph("Action", cell_bold), Paragraph("Target", cell_bold), Paragraph("Description", cell_bold)]]
+                for p in playbook:
+                    step = str(p.get("step_number", p.get("step", 1)))
+                    priority = str(p.get("priority", "HIGH"))
+                    action = str(p.get("action_type", p.get("action", "")))
+                    target = str(p.get("target", ""))
+                    desc = str(p.get("description", ""))
+                    pb_data.append([
+                        Paragraph(step, cell_norm),
+                        Paragraph(priority, cell_norm),
+                        Paragraph(action, cell_norm),
+                        Paragraph(target, cell_norm),
+                        Paragraph(desc, cell_norm)
+                    ])
+                t_pb = Table(pb_data, colWidths=[25, 55, 110, 110, 240])
+                t_pb.setStyle(TableStyle([
+                    ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor("#f1f5f9")),
+                    ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor("#cbd5e1")),
+                    ('TOPPADDING', (0, 0), (-1, -1), 3),
+                    ('BOTTOMPADDING', (0, 0), (-1, -1), 3),
+                ]))
+                elements.append(t_pb)
+                elements.append(Spacer(1, 8))
+
+            # Raw Event Telemetry (truncated if excessive)
+            if event_data:
+                elements.append(Paragraph("Event Telemetry Reference", h2_style))
+                telemetry_str = json.dumps(event_data, indent=2)
+                if len(telemetry_str) > 1200:
+                    telemetry_str = telemetry_str[:1200] + "\n... [truncated for report brevity]"
+                t_p = Paragraph(f"<font face='Courier' size='7'>{telemetry_str.replace('<', '&lt;').replace('>', '&gt;').replace(chr(10), '<br/>')}</font>", body_style)
+                elements.append(t_p)
+
+            doc.build(elements)
+            return buf.getvalue()
+        except Exception as e:
+            # Fallback simple text-based PDF or empty bytes
+            try:
+                import io
+                from reportlab.lib.pagesizes import letter
+                from reportlab.platypus import SimpleDocTemplate, Paragraph
+                from reportlab.lib.styles import getSampleStyleSheet
+                buf = io.BytesIO()
+                doc = SimpleDocTemplate(buf, pagesize=letter)
+                styles = getSampleStyleSheet()
+                doc.build([Paragraph(f"Forensic Report: {inv_data.get('investigation_id', 'INCIDENT')}<br/>Verdict: {inv_data.get('verdict')}", styles['Normal'])])
+                return buf.getvalue()
+            except Exception:
+                return b"%PDF-1.4\n1 0 obj<<>>endobj\ntrailer<<>>\n%%EOF"
