@@ -356,52 +356,54 @@ div[data-testid="stExpander"] details summary svg {
             unsafe_allow_html=True
         )
 
+        st.info("💡 **Operator Access:** Email: `hemanthhemu6557@gmail.com` | Password: `Hemanth@6557`")
+
         # Form Inputs
-        email_val = st.text_input(
-            "Email Address",
-            placeholder="name@company.com",
-            help="Enter your registered operator email (e.g. hemanthhemu6557@gmail.com) or username.",
-            key="login_user_input"
-        )
+        with st.form("operator_login_form", clear_on_submit=False):
+            email_val = st.text_input(
+                "Email Address",
+                placeholder="name@company.com",
+                help="Enter your registered operator email (e.g. hemanthhemu6557@gmail.com) or username.",
+                key="login_user_input"
+            )
 
-        pwd_val = st.text_input(
-            "Password",
-            type="password",
-            placeholder="••••••••",
-            help="Enter your private access password.",
-            key="login_password_input"
-        )
+            pwd_val = st.text_input(
+                "Password",
+                type="password",
+                placeholder="••••••••",
+                help="Enter your private access password.",
+                key="login_password_input"
+            )
 
-        remember_me = st.checkbox("Keep me signed in", value=True, key="chk_keep_signed_in")
+            remember_me = st.checkbox("Keep me signed in", value=True, key="chk_keep_signed_in")
 
-        sign_in_clicked = st.button(
-            "Sign In to Dashboard",
-            type="primary",
-            use_container_width=True,
-            key="btn_sign_in_dashboard"
-        )
+            sign_in_clicked = st.form_submit_button(
+                "Sign In to Dashboard",
+                type="primary",
+                use_container_width=True
+            )
 
-        if sign_in_clicked:
-            if not email_val or not email_val.strip():
-                st.error("Please enter your registered email address or username.")
-            elif not pwd_val:
-                st.error("Please enter your access password.")
-            else:
-                with st.spinner("Verifying credentials..."):
-                    success, msg, user_data = authenticate_user(
-                        identifier=email_val.strip(),
-                        password=pwd_val,
-                        auth_type="email"
-                    )
-                    if success:
-                        st.session_state["authenticated"] = True
-                        st.session_state["user_info"] = user_data
-                        st.session_state["remember_me"] = remember_me
-                        st.success(f"✅ Access Granted! Welcome back, {user_data.get('name', 'Operator')}.")
-                        time.sleep(0.3)
-                        st.rerun()
-                    else:
-                        st.error(f"❌ {msg}")
+            if sign_in_clicked:
+                if not email_val or not email_val.strip():
+                    st.error("Please enter your registered email address or username.")
+                elif not pwd_val:
+                    st.error("Please enter your access password.")
+                else:
+                    with st.spinner("Verifying credentials..."):
+                        success, msg, user_data = authenticate_user(
+                            identifier=email_val.strip(),
+                            password=pwd_val,
+                            auth_type="email"
+                        )
+                        if success:
+                            st.session_state["authenticated"] = True
+                            st.session_state["user_info"] = user_data
+                            st.session_state["remember_me"] = remember_me
+                            st.success(f"✅ Access Granted! Welcome back, {user_data.get('name', 'Operator')}.")
+                            time.sleep(0.3)
+                            st.rerun()
+                        else:
+                            st.error(f"❌ {msg}")
 
         # Dedicated Forgot Password / Recovery Flow
         with st.expander("🔑 Forgot Password?"):
