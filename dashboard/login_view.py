@@ -356,14 +356,13 @@ div[data-testid="stExpander"] details summary svg {
             unsafe_allow_html=True
         )
 
-        st.info("💡 **Operator Access:** Email: `hemanthhemu6557@gmail.com` | Password: `Hemanth@6557`")
-
         # Form Inputs
         with st.form("operator_login_form", clear_on_submit=False):
             email_val = st.text_input(
-                "Email Address",
+                "Email Address or Username",
+                value="",
                 placeholder="name@company.com",
-                help="Enter your registered operator email (e.g. hemanthhemu6557@gmail.com) or username.",
+                help="Enter your registered operator email, mobile, or username.",
                 key="login_user_input"
             )
 
@@ -393,7 +392,7 @@ div[data-testid="stExpander"] details summary svg {
                         success, msg, user_data = authenticate_user(
                             identifier=email_val.strip(),
                             password=pwd_val,
-                            auth_type="email"
+                            auth_type=None
                         )
                         if success:
                             st.session_state["authenticated"] = True
@@ -409,7 +408,7 @@ div[data-testid="stExpander"] details summary svg {
         with st.expander("🔑 Forgot Password?"):
             st.markdown("<small style='color: #334155 !important; font-size: 0.9em; font-weight: 500;'>Enter your registered email address to receive a 6-digit verification code directly to your Gmail inbox.</small>", unsafe_allow_html=True)
 
-            fp_email = st.text_input("Enter Registered Email Address", placeholder="hemanthhemu6557@gmail.com", key="fp_email_field")
+            fp_email = st.text_input("Enter Registered Email Address", placeholder="operator@company.com", key="fp_email_field")
             if st.button("📲 Send Verification Code to Email", use_container_width=True, key="btn_fp_send_code"):
                 if not fp_email.strip():
                     st.warning("Please enter your registered email address above.")

@@ -95,36 +95,36 @@ st.markdown("""
         letter-spacing: -0.3px !important;
     }
 
-    .stApp [data-testid="stMainBlockContainer"] h4:not(.soc-card-dark h4),
-    .stApp [data-testid="stMainBlockContainer"] h5,
-    .stApp [data-testid="stMainBlockContainer"] h6 {
+    .stApp [data-testid="stMainBlockContainer"] h4:not(.soc-card-dark h4):not(.agent-card h4):not(div[style*="background-color"] h4),
+    .stApp [data-testid="stMainBlockContainer"] h5:not(.soc-card-dark h5):not(.agent-card h5),
+    .stApp [data-testid="stMainBlockContainer"] h6:not(.soc-card-dark h6):not(.agent-card h6) {
         color: #1e293b !important;
         font-weight: 700 !important;
     }
 
     /* General Body Text & Labels on Light Canvas */
-    .stApp [data-testid="stMainBlockContainer"] p:not(.soc-card-dark p):not(.brand-panel-card p),
-    .stApp [data-testid="stMainBlockContainer"] span:not([class*="badge-"]):not([style*="color"]):not(.soc-card-dark span),
+    .stApp [data-testid="stMainBlockContainer"] p:not(.soc-card-dark p):not(.agent-card p):not(div[style*="background-color"] p):not(.brand-panel-card p),
+    .stApp [data-testid="stMainBlockContainer"] span:not([class*="badge-"]):not([style*="color"]):not(.soc-card-dark span):not(.agent-card span):not(div[style*="background-color"] span):not(pre span):not(code span),
     .stApp [data-testid="stMainBlockContainer"] label,
     .stApp [data-testid="stMainBlockContainer"] label p {
         color: #1e293b;
         font-weight: 500;
     }
 
-    /* Markdown Bullet & Numbered Lists on Light Canvas (Strictly fixes invisible white lists) */
-    .stApp [data-testid="stMainBlockContainer"] ul li:not(.soc-card-dark li),
-    .stApp [data-testid="stMainBlockContainer"] ol li:not(.soc-card-dark li),
-    .stApp [data-testid="stMainBlockContainer"] li:not(.soc-card-dark li) {
+    /* Markdown Bullet & Numbered Lists on Light Canvas (Strictly fixes invisible white lists on canvas while preserving dark cards) */
+    .stApp [data-testid="stMainBlockContainer"] ul li:not(.soc-card-dark li):not(.agent-card li):not(div[style*="background-color"] li),
+    .stApp [data-testid="stMainBlockContainer"] ol li:not(.soc-card-dark li):not(.agent-card li):not(div[style*="background-color"] li),
+    .stApp [data-testid="stMainBlockContainer"] li:not(.soc-card-dark li):not(.agent-card li):not(div[style*="background-color"] li) {
         color: #1e293b !important;
         font-weight: 500 !important;
         line-height: 1.65 !important;
     }
 
-    .stApp [data-testid="stMainBlockContainer"] ul li strong,
-    .stApp [data-testid="stMainBlockContainer"] ol li strong,
-    .stApp [data-testid="stMainBlockContainer"] li strong,
-    .stApp [data-testid="stMainBlockContainer"] strong:not(.card-b):not(.soc-card-dark strong),
-    .stApp [data-testid="stMainBlockContainer"] b:not(.card-b):not(.soc-card-dark b) {
+    .stApp [data-testid="stMainBlockContainer"] ul li:not(.soc-card-dark li):not(.agent-card li) strong,
+    .stApp [data-testid="stMainBlockContainer"] ol li:not(.soc-card-dark li):not(.agent-card li) strong,
+    .stApp [data-testid="stMainBlockContainer"] li:not(.soc-card-dark li):not(.agent-card li) strong,
+    .stApp [data-testid="stMainBlockContainer"] strong:not(.card-b):not(.soc-card-dark strong):not(.agent-card strong):not(div[style*="background-color"] strong),
+    .stApp [data-testid="stMainBlockContainer"] b:not(.card-b):not(.soc-card-dark b):not(.agent-card b):not(div[style*="background-color"] b) {
         color: #0f172a !important;
         font-weight: 700 !important;
     }
@@ -246,8 +246,8 @@ st.markdown("""
         font-weight: 700 !important;
     }
 
-    /* Inline Code and Badges on Light Canvas */
-    .stApp [data-testid="stMainBlockContainer"] code {
+    /* Inline Code and Badges on Light Canvas (Only non-pre inline code) */
+    .stApp [data-testid="stMainBlockContainer"] :not(pre) > code {
         background-color: #1e293b !important;
         color: #38bdf8 !important;
         font-weight: 600 !important;
@@ -255,6 +255,53 @@ st.markdown("""
         border-radius: 4px !important;
         border: 1px solid #334155 !important;
         font-size: 0.88em !important;
+    }
+
+    /* Multi-line Code Blocks & Telemetry Displays (Strict fix for Image 1 blank telemetry box) */
+    .stApp [data-testid="stMainBlockContainer"] pre,
+    .stApp [data-testid="stMainBlockContainer"] div[data-testid="stCode"],
+    .stApp [data-testid="stMainBlockContainer"] div[data-testid="stCodeBlock"],
+    .stApp [data-testid="stMainBlockContainer"] .stCodeBlock {
+        background-color: #0f172a !important;
+        border: 1.5px solid #334155 !important;
+        border-radius: 8px !important;
+    }
+
+    .stApp [data-testid="stMainBlockContainer"] pre code,
+    .stApp [data-testid="stMainBlockContainer"] div[data-testid="stCode"] code,
+    .stApp [data-testid="stMainBlockContainer"] div[data-testid="stCodeBlock"] code {
+        background-color: transparent !important;
+        color: #f1f5f9 !important;
+        border: none !important;
+        padding: 8px 12px !important;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+        font-size: 0.88rem !important;
+        line-height: 1.55 !important;
+        display: block !important;
+    }
+
+    .stApp [data-testid="stMainBlockContainer"] pre code span,
+    .stApp [data-testid="stMainBlockContainer"] div[data-testid="stCode"] code span,
+    .stApp [data-testid="stMainBlockContainer"] div[data-testid="stCodeBlock"] code span {
+        color: #f1f5f9 !important;
+    }
+
+    /* Syntax Highlighting Tokens in Code Blocks */
+    .stApp [data-testid="stMainBlockContainer"] pre code span.token.property,
+    .stApp [data-testid="stMainBlockContainer"] pre code span.token.key {
+        color: #38bdf8 !important;
+        font-weight: 600 !important;
+    }
+    .stApp [data-testid="stMainBlockContainer"] pre code span.token.string {
+        color: #34d399 !important;
+    }
+    .stApp [data-testid="stMainBlockContainer"] pre code span.token.number,
+    .stApp [data-testid="stMainBlockContainer"] pre code span.token.boolean {
+        color: #fbbf24 !important;
+        font-weight: 600 !important;
+    }
+    .stApp [data-testid="stMainBlockContainer"] pre code span.token.punctuation {
+        color: #94a3b8 !important;
     }
 
     /* Blockquotes */
@@ -784,7 +831,7 @@ st.markdown("""
         letter-spacing: 0.5px !important;
         display: inline-block !important;
     }
-    .badge-benign {
+    .badge-benign, .badge-none {
         background-color: #28a745 !important;
         color: #ffffff !important;
         padding: 4px 10px !important;
@@ -879,18 +926,13 @@ st.sidebar.image("https://cdn-icons-png.flaticon.com/512/2092/2092663.png", widt
 st.sidebar.title("SOC Agent Control")
 st.sidebar.markdown("**Project:** Multi-Agent Fraud & Cyber Threat Detection")
 
-selected_provider = st.sidebar.selectbox(
-    "Active LLM Backend",
-    options=["mock", "gemini", "groq", "ollama", "openai"],
-    index=0,
-    help="Select 'mock' for instant offline demonstration without API keys, or select a live provider."
-)
+selected_provider = os.getenv("LLM_PROVIDER", "mock").lower()
 
 anomaly_threshold = st.sidebar.slider(
     "Tier-1 Anomaly Filter Threshold",
     min_value=0.20,
     max_value=0.90,
-    value=0.50,
+    value=0.20,
     step=0.05
 )
 
@@ -1023,7 +1065,7 @@ if selected_nav == "📊 Real-Time SOC Monitor & Telemetry":
                 st.success(f"Successfully ingested {res['records_ingested']:,} records ({res['alerts_generated']:,} alerts generated) in {res['elapsed_seconds']}s!")
                 st.rerun()
 
-        filter_col1, filter_col2, filter_col3 = st.columns([2.5, 3, 1.5])
+        filter_col1, filter_col2, filter_col3 = st.columns([3.2, 3.8, 1.2])
         with filter_col1:
             selected_domain = st.selectbox(
                 "Filter Stream by Domain:",
@@ -1037,12 +1079,21 @@ if selected_nav == "📊 Real-Time SOC Monitor & Telemetry":
         with filter_col2:
             search_query = st.text_input("🔍 Search Telemetry (Event ID, IP, User, Payload):", value="")
         with filter_col3:
-            page_size = st.selectbox("Events Per Page:", options=[15, 25, 50, 100], index=0)
+            page_size = st.selectbox("Per Page:", options=[15, 25, 50, 100], index=0)
+
+        if anomaly_threshold <= 0.20:
+            min_score = None
+        elif anomaly_threshold >= 0.90:
+            min_score = 0.90
+        elif anomaly_threshold >= 0.50:
+            min_score = 0.50
+        else:
+            min_score = anomaly_threshold
 
         if "soc_page" not in st.session_state:
             st.session_state["soc_page"] = 0
 
-        filter_key = f"{selected_domain}_{search_query}_{page_size}"
+        filter_key = f"{selected_domain}_{search_query}_{page_size}_{anomaly_threshold}"
         if st.session_state.get("last_filter_key") != filter_key:
             st.session_state["soc_page"] = 0
             st.session_state["last_filter_key"] = filter_key
@@ -1051,6 +1102,7 @@ if selected_nav == "📊 Real-Time SOC Monitor & Telemetry":
         events, total_filtered = db.get_events_paginated(
             domain=selected_domain if selected_domain != "ALL DOMAINS" else None,
             search_query=search_query if search_query.strip() else None,
+            min_anomaly_score=min_score,
             limit=page_size,
             offset=offset,
             exclude_simulations=True
@@ -1080,18 +1132,27 @@ if selected_nav == "📊 Real-Time SOC Monitor & Telemetry":
 
         if events:
             for evt in events:
-                has_alert = evt.get("alert_id") is not None
-                priority = evt.get("triage_priority", "BENIGN")
-                score = evt.get("anomaly_score", 0.0) or 0.0
+                score = float(evt.get("anomaly_score") or 0.0)
+                is_above_threshold = (anomaly_threshold <= 0.20) or (score >= anomaly_threshold)
+                has_alert = evt.get("alert_id") is not None and is_above_threshold
                 is_unc = bool(evt.get("is_uncertain", 0))
 
-                badge_style = {
-                    "CRITICAL": "badge-critical",
-                    "HIGH": "badge-high",
-                    "MEDIUM": "badge-medium",
-                    "LOW": "badge-low",
-                    "BENIGN": "badge-benign"
-                }.get(priority, "badge-benign")
+                # Dynamic classification based on calibrated score vs threshold
+                if not has_alert or score <= 0.0:
+                    priority = "None"
+                    badge_style = "badge-benign"
+                elif score >= 0.85 or evt.get("triage_priority") == "CRITICAL":
+                    priority = "CRITICAL"
+                    badge_style = "badge-critical"
+                elif score >= 0.70 or evt.get("triage_priority") == "HIGH":
+                    priority = "HIGH"
+                    badge_style = "badge-high"
+                elif score >= 0.50 or evt.get("triage_priority") == "MEDIUM":
+                    priority = "MEDIUM"
+                    badge_style = "badge-medium"
+                else:
+                    priority = "LOW"
+                    badge_style = "badge-low"
 
                 unc_badge = " <span style='background:#f59e0b;color:#0f172a;padding:2px 6px;border-radius:4px;font-size:0.75em;font-weight:bold;'>⚠️ UNCERTAIN</span>" if is_unc else ""
 
@@ -1908,60 +1969,84 @@ elif selected_nav == "🎖️ Module 8: Cybersecurity Risk Assessment & War Room
         if state:
             render_investigation_card(state, title=f"War Room Incident Analysis: {state.investigation_id}")
 
-            colA, colB = st.columns(2)
-            with colA:
-                if state.cyber_sentinel:
-                    evidence_html = "".join([f"<li>{ev}</li>" for ev in state.cyber_sentinel.evidence])
-                    st.markdown(f"""
-                    <div class="agent-card" style="background-color: #111827; border: 1px solid #1e293b; border-radius: 10px; padding: 16px; margin-bottom: 14px;">
-                        <h4 style="color: #38bdf8 !important; font-weight: 800; margin-top: 0;">🛡️ Cyber Sentinel Agent</h4>
-                        <p style="margin: 6px 0; color: #f1f5f9 !important;"><b style="color: #ffffff !important;">Threat Assessment:</b> <code>{'SUSPICIOUS' if state.cyber_sentinel.is_suspicious else 'BENIGN'}</code></p>
-                        <p style="margin: 6px 0; color: #f1f5f9 !important;"><b style="color: #ffffff !important;">Confidence:</b> <code>{state.cyber_sentinel.confidence:.2f}</code> | <b style="color: #ffffff !important;">Category:</b> <code>{state.cyber_sentinel.threat_category}</code></p>
-                        <p style="margin: 6px 0 2px 0; color: #f1f5f9 !important;"><b style="color: #ffffff !important;">Evidence Logged:</b></p>
-                        <ul style="margin: 0 0 8px 18px; color: #f1f5f9 !important;">{evidence_html}</ul>
-                        <p style="margin: 6px 0 0 0; color: #f1f5f9 !important;"><b style="color: #ffffff !important;">Recommendation:</b> <i style="color: #cbd5e1 !important;">{state.cyber_sentinel.action_recommendation}</i></p>
-                    </div>
-                    """, unsafe_allow_html=True)
+            def _render_cyber():
+                evidence_html = "".join([f"<li style='color: #f1f5f9 !important; font-weight: 500 !important; margin-bottom: 4px;'>{ev}</li>" for ev in state.cyber_sentinel.evidence])
+                st.markdown(f"""
+                <div class="soc-card-dark agent-card" style="background-color: #111827; border: 1px solid #1e293b; border-radius: 10px; padding: 16px; margin-bottom: 14px; color: #f1f5f9;">
+                    <h4 style="color: #38bdf8 !important; font-weight: 800; margin-top: 0;">🛡️ Cyber Sentinel Agent</h4>
+                    <p style="margin: 6px 0; color: #f1f5f9 !important;"><b style="color: #ffffff !important;">Threat Assessment:</b> <code style="background-color:#1e293b; color:#38bdf8; border:1px solid #334155; padding:2px 6px; border-radius:4px;">{'SUSPICIOUS' if state.cyber_sentinel.is_suspicious else 'BENIGN'}</code></p>
+                    <p style="margin: 6px 0; color: #f1f5f9 !important;"><b style="color: #ffffff !important;">Confidence:</b> <code style="background-color:#1e293b; color:#38bdf8; border:1px solid #334155; padding:2px 6px; border-radius:4px;">{state.cyber_sentinel.confidence:.2f}</code> | <b style="color: #ffffff !important;">Category:</b> <code style="background-color:#1e293b; color:#38bdf8; border:1px solid #334155; padding:2px 6px; border-radius:4px;">{state.cyber_sentinel.threat_category}</code></p>
+                    <p style="margin: 6px 0 2px 0; color: #f1f5f9 !important;"><b style="color: #ffffff !important;">Evidence Logged:</b></p>
+                    <ul style="margin: 0 0 8px 18px; color: #f1f5f9 !important;">{evidence_html}</ul>
+                    <p style="margin: 6px 0 0 0; color: #f1f5f9 !important;"><b style="color: #ffffff !important;">Recommendation:</b> <i style="color: #cbd5e1 !important;">{state.cyber_sentinel.action_recommendation}</i></p>
+                </div>
+                """, unsafe_allow_html=True)
 
-                if state.fraud_investigator:
-                    evidence_html = "".join([f"<li>{ev}</li>" for ev in state.fraud_investigator.evidence])
-                    st.markdown(f"""
-                    <div class="agent-card" style="background-color: #111827; border: 1px solid #1e293b; border-radius: 10px; padding: 16px; margin-bottom: 14px;">
-                        <h4 style="color: #38bdf8 !important; font-weight: 800; margin-top: 0;">💳 Financial Fraud Investigator Agent</h4>
-                        <p style="margin: 6px 0; color: #f1f5f9 !important;"><b style="color: #ffffff !important;">Fraud Assessment:</b> <code>{'SUSPICIOUS' if state.fraud_investigator.is_suspicious else 'BENIGN'}</code></p>
-                        <p style="margin: 6px 0; color: #f1f5f9 !important;"><b style="color: #ffffff !important;">Confidence:</b> <code>{state.fraud_investigator.confidence:.2f}</code> | <b style="color: #ffffff !important;">Category:</b> <code>{state.fraud_investigator.threat_category}</code></p>
-                        <p style="margin: 6px 0 2px 0; color: #f1f5f9 !important;"><b style="color: #ffffff !important;">Behavioral Indicators:</b></p>
-                        <ul style="margin: 0 0 8px 18px; color: #f1f5f9 !important;">{evidence_html}</ul>
-                        <p style="margin: 6px 0 0 0; color: #f1f5f9 !important;"><b style="color: #ffffff !important;">Recommendation:</b> <i style="color: #cbd5e1 !important;">{state.fraud_investigator.action_recommendation}</i></p>
-                    </div>
-                    """, unsafe_allow_html=True)
+            def _render_fraud():
+                evidence_html = "".join([f"<li style='color: #f1f5f9 !important; font-weight: 500 !important; margin-bottom: 4px;'>{ev}</li>" for ev in state.fraud_investigator.evidence])
+                st.markdown(f"""
+                <div class="soc-card-dark agent-card" style="background-color: #111827; border: 1px solid #1e293b; border-radius: 10px; padding: 16px; margin-bottom: 14px; color: #f1f5f9;">
+                    <h4 style="color: #38bdf8 !important; font-weight: 800; margin-top: 0;">💳 Financial Fraud Investigator Agent</h4>
+                    <p style="margin: 6px 0; color: #f1f5f9 !important;"><b style="color: #ffffff !important;">Fraud Assessment:</b> <code style="background-color:#1e293b; color:#38bdf8; border:1px solid #334155; padding:2px 6px; border-radius:4px;">{'SUSPICIOUS' if state.fraud_investigator.is_suspicious else 'BENIGN'}</code></p>
+                    <p style="margin: 6px 0; color: #f1f5f9 !important;"><b style="color: #ffffff !important;">Confidence:</b> <code style="background-color:#1e293b; color:#38bdf8; border:1px solid #334155; padding:2px 6px; border-radius:4px;">{state.fraud_investigator.confidence:.2f}</code> | <b style="color: #ffffff !important;">Category:</b> <code style="background-color:#1e293b; color:#38bdf8; border:1px solid #334155; padding:2px 6px; border-radius:4px;">{state.fraud_investigator.threat_category}</code></p>
+                    <p style="margin: 6px 0 2px 0; color: #f1f5f9 !important;"><b style="color: #ffffff !important;">Behavioral Indicators:</b></p>
+                    <ul style="margin: 0 0 8px 18px; color: #f1f5f9 !important;">{evidence_html}</ul>
+                    <p style="margin: 6px 0 0 0; color: #f1f5f9 !important;"><b style="color: #ffffff !important;">Recommendation:</b> <i style="color: #cbd5e1 !important;">{state.fraud_investigator.action_recommendation}</i></p>
+                </div>
+                """, unsafe_allow_html=True)
 
-            with colB:
-                if state.phishing_analyst:
-                    evidence_html = "".join([f"<li>{ev}</li>" for ev in state.phishing_analyst.evidence])
-                    st.markdown(f"""
-                    <div class="agent-card" style="background-color: #111827; border: 1px solid #1e293b; border-radius: 10px; padding: 16px; margin-bottom: 14px;">
-                        <h4 style="color: #38bdf8 !important; font-weight: 800; margin-top: 0;">🎣 Phishing & Social Engineering Analyst</h4>
-                        <p style="margin: 6px 0; color: #f1f5f9 !important;"><b style="color: #ffffff !important;">Phishing Assessment:</b> <code>{'SUSPICIOUS' if state.phishing_analyst.is_suspicious else 'BENIGN'}</code></p>
-                        <p style="margin: 6px 0; color: #f1f5f9 !important;"><b style="color: #ffffff !important;">Confidence:</b> <code>{state.phishing_analyst.confidence:.2f}</code> | <b style="color: #ffffff !important;">Category:</b> <code>{state.phishing_analyst.threat_category}</code></p>
-                        <p style="margin: 6px 0 2px 0; color: #f1f5f9 !important;"><b style="color: #ffffff !important;">Payload / Lure Flags:</b></p>
-                        <ul style="margin: 0 0 8px 18px; color: #f1f5f9 !important;">{evidence_html}</ul>
-                        <p style="margin: 6px 0 0 0; color: #f1f5f9 !important;"><b style="color: #ffffff !important;">Recommendation:</b> <i style="color: #cbd5e1 !important;">{state.phishing_analyst.action_recommendation}</i></p>
-                    </div>
-                    """, unsafe_allow_html=True)
+            def _render_phishing():
+                evidence_html = "".join([f"<li style='color: #f1f5f9 !important; font-weight: 500 !important; margin-bottom: 4px;'>{ev}</li>" for ev in state.phishing_analyst.evidence])
+                st.markdown(f"""
+                <div class="soc-card-dark agent-card" style="background-color: #111827; border: 1px solid #1e293b; border-radius: 10px; padding: 16px; margin-bottom: 14px; color: #f1f5f9;">
+                    <h4 style="color: #38bdf8 !important; font-weight: 800; margin-top: 0;">🎧 Phishing & Social Engineering Analyst</h4>
+                    <p style="margin: 6px 0; color: #f1f5f9 !important;"><b style="color: #ffffff !important;">Phishing Assessment:</b> <code style="background-color:#1e293b; color:#38bdf8; border:1px solid #334155; padding:2px 6px; border-radius:4px;">{'SUSPICIOUS' if state.phishing_analyst.is_suspicious else 'BENIGN'}</code></p>
+                    <p style="margin: 6px 0; color: #f1f5f9 !important;"><b style="color: #ffffff !important;">Confidence:</b> <code style="background-color:#1e293b; color:#38bdf8; border:1px solid #334155; padding:2px 6px; border-radius:4px;">{state.phishing_analyst.confidence:.2f}</code> | <b style="color: #ffffff !important;">Category:</b> <code style="background-color:#1e293b; color:#38bdf8; border:1px solid #334155; padding:2px 6px; border-radius:4px;">{state.phishing_analyst.threat_category}</code></p>
+                    <p style="margin: 6px 0 2px 0; color: #f1f5f9 !important;"><b style="color: #ffffff !important;">Payload / Lure Flags:</b></p>
+                    <ul style="margin: 0 0 8px 18px; color: #f1f5f9 !important;">{evidence_html}</ul>
+                    <p style="margin: 6px 0 0 0; color: #f1f5f9 !important;"><b style="color: #ffffff !important;">Recommendation:</b> <i style="color: #cbd5e1 !important;">{state.phishing_analyst.action_recommendation}</i></p>
+                </div>
+                """, unsafe_allow_html=True)
 
-                if state.threat_intel:
-                    evidence_html = "".join([f"<li>{ev}</li>" for ev in state.threat_intel.evidence])
-                    st.markdown(f"""
-                    <div class="agent-card" style="background-color: #111827; border: 1px solid #1e293b; border-radius: 10px; padding: 16px; margin-bottom: 14px;">
-                        <h4 style="color: #38bdf8 !important; font-weight: 800; margin-top: 0;">🌐 Threat Intelligence & OSINT Correlator</h4>
-                        <p style="margin: 6px 0; color: #f1f5f9 !important;"><b style="color: #ffffff !important;">OSINT Match:</b> <code>{'CONFIRMED MALICIOUS' if state.threat_intel.is_suspicious else 'CLEAN / INTERNAL'}</code></p>
-                        <p style="margin: 6px 0; color: #f1f5f9 !important;"><b style="color: #ffffff !important;">Confidence:</b> <code>{state.threat_intel.confidence:.2f}</code> | <b style="color: #ffffff !important;">Feed Status:</b> <code>{state.threat_intel.threat_category}</code></p>
-                        <p style="margin: 6px 0 2px 0; color: #f1f5f9 !important;"><b style="color: #ffffff !important;">Reputation Evidence:</b></p>
-                        <ul style="margin: 0 0 8px 18px; color: #f1f5f9 !important;">{evidence_html}</ul>
-                        <p style="margin: 6px 0 0 0; color: #f1f5f9 !important;"><b style="color: #ffffff !important;">Recommendation:</b> <i style="color: #cbd5e1 !important;">{state.threat_intel.action_recommendation}</i></p>
-                    </div>
-                    """, unsafe_allow_html=True)
+            def _render_threat_intel():
+                evidence_html = "".join([f"<li style='color: #f1f5f9 !important; font-weight: 500 !important; margin-bottom: 4px;'>{ev}</li>" for ev in state.threat_intel.evidence])
+                st.markdown(f"""
+                <div class="soc-card-dark agent-card" style="background-color: #111827; border: 1px solid #1e293b; border-radius: 10px; padding: 16px; margin-bottom: 14px; color: #f1f5f9;">
+                    <h4 style="color: #38bdf8 !important; font-weight: 800; margin-top: 0;">🌐 Threat Intelligence & OSINT Correlator</h4>
+                    <p style="margin: 6px 0; color: #f1f5f9 !important;"><b style="color: #ffffff !important;">OSINT Match:</b> <code style="background-color:#1e293b; color:#38bdf8; border:1px solid #334155; padding:2px 6px; border-radius:4px;">{'CONFIRMED MALICIOUS' if state.threat_intel.is_suspicious else 'CLEAN / INTERNAL'}</code></p>
+                    <p style="margin: 6px 0; color: #f1f5f9 !important;"><b style="color: #ffffff !important;">Confidence:</b> <code style="background-color:#1e293b; color:#38bdf8; border:1px solid #334155; padding:2px 6px; border-radius:4px;">{state.threat_intel.confidence:.2f}</code> | <b style="color: #ffffff !important;">Feed Status:</b> <code style="background-color:#1e293b; color:#38bdf8; border:1px solid #334155; padding:2px 6px; border-radius:4px;">{state.threat_intel.threat_category}</code></p>
+                    <p style="margin: 6px 0 2px 0; color: #f1f5f9 !important;"><b style="color: #ffffff !important;">Reputation Evidence:</b></p>
+                    <ul style="margin: 0 0 8px 18px; color: #f1f5f9 !important;">{evidence_html}</ul>
+                    <p style="margin: 6px 0 0 0; color: #f1f5f9 !important;"><b style="color: #ffffff !important;">Recommendation:</b> <i style="color: #cbd5e1 !important;">{state.threat_intel.action_recommendation}</i></p>
+                </div>
+                """, unsafe_allow_html=True)
+
+            if state.phishing_analyst:
+                if state.cyber_sentinel or state.fraud_investigator:
+                    c1, c2 = st.columns(2)
+                    with c1:
+                        if state.cyber_sentinel:
+                            _render_cyber()
+                    with c2:
+                        if state.fraud_investigator:
+                            _render_fraud()
+
+                colA, colB = st.columns(2)
+                with colA:
+                    _render_phishing()
+                with colB:
+                    if state.threat_intel:
+                        _render_threat_intel()
+            else:
+                colA, colB = st.columns(2)
+                with colA:
+                    if state.cyber_sentinel:
+                        _render_cyber()
+                    if state.fraud_investigator:
+                        _render_fraud()
+                with colB:
+                    if state.threat_intel:
+                        _render_threat_intel()
 
             if state.debate_transcript:
                 st.markdown("### ⚖️ Inter-Agent Debate & Cross-Domain Arbitration")
@@ -2012,12 +2097,37 @@ elif selected_nav == "📄 Module 9: Final Report Generation & Export":
     st.subheader("📄 Module 9: Final Report Generation & Forensic Export Station")
     st.markdown("Generates, previews, and exports comprehensive SOC incident investigation reports in **Plain Text, CSV, HTML, and Forensic PDF** formats.")
 
-    # Retrieve past investigations from SQLite
+    # Retrieve past investigations from SQLite with full telemetry and agent consensus joins
     with db.get_connection() as conn:
         cursor = conn.cursor()
-        cursor.execute("SELECT investigation_id, alert_id, verdict, composite_threat_score, timestamp, executive_summary FROM investigations ORDER BY timestamp DESC LIMIT 20")
+        cursor.execute("""
+            SELECT i.*, 
+                   e.raw_json as event_raw_json, 
+                   e.domain as event_domain, 
+                   e.source_ip as event_ip, 
+                   e.user_identifier as event_user,
+                   a.anomaly_score as alert_score
+            FROM investigations i
+            LEFT JOIN events e ON i.event_id = e.event_id
+            LEFT JOIN alerts a ON i.alert_id = a.alert_id
+            ORDER BY i.timestamp DESC 
+            LIMIT 50
+        """)
         rows = cursor.fetchall()
-        past_invs = [dict(row) for row in rows]
+        past_invs = []
+        for r in rows:
+            d = dict(r)
+            try: d["mitre_tactics"] = json.loads(d.get("mitre_tactics_json") or "[]")
+            except Exception: d["mitre_tactics"] = []
+            try: d["mitre_techniques"] = json.loads(d.get("mitre_techniques_json") or "[]")
+            except Exception: d["mitre_techniques"] = []
+            try: d["containment_playbook"] = json.loads(d.get("playbook_steps_json") or "[]")
+            except Exception: d["containment_playbook"] = []
+            try: d["agent_votes"] = json.loads(d.get("agent_votes_json") or "{}")
+            except Exception: d["agent_votes"] = {}
+            try: d["event_telemetry"] = json.loads(d.get("event_raw_json") or "{}")
+            except Exception: d["event_telemetry"] = {}
+            past_invs.append(d)
 
     if not past_invs and "investigation_state" not in st.session_state:
         st.warning("⚠️ No incident investigations have been recorded yet. Visit Module 8 (War Room) or Module 7 (Fraud) to run an investigation first.")
@@ -2028,6 +2138,7 @@ elif selected_nav == "📄 Module 9: Final Report Generation & Export":
             inv_choices[f"[ACTIVE SESSION] {curr.investigation_id} ({curr.consensus.verdict})"] = {
                 "investigation_id": curr.investigation_id,
                 "alert_id": st.session_state.get("selected_alert_id", "LIVE_ALERT"),
+                "event_id": curr.event_telemetry.get("event_id", "LIVE_EVT") if isinstance(curr.event_telemetry, dict) else "LIVE_EVT",
                 "verdict": curr.consensus.verdict,
                 "composite_threat_score": curr.consensus.composite_threat_score,
                 "overall_confidence": curr.consensus.overall_confidence,
@@ -2047,7 +2158,7 @@ elif selected_nav == "📄 Module 9: Final Report Generation & Export":
         selected_inv_label = st.selectbox("Select Incident Investigation Dossier to Export:", options=list(inv_choices.keys()))
         target_inv = inv_choices[selected_inv_label]
 
-        # Generate Report Formats
+        # Generate Full Multi-Format Report Dossiers
         event_telemetry = target_inv.get("event_telemetry")
         md_content = ForensicReportGenerator.generate_investigation_markdown(target_inv, event_telemetry)
         txt_content = ForensicReportGenerator.generate_investigation_text(target_inv, event_telemetry)
@@ -2061,42 +2172,42 @@ elif selected_nav == "📄 Module 9: Final Report Generation & Export":
         d_col1, d_col2, d_col3, d_col4, d_col5 = st.columns(5)
         with d_col1:
             st.download_button(
-                label="📄 Download Markdown (.md)",
-                data=md_content,
-                file_name=f"{inv_filename}_REPORT.md",
-                mime="text/markdown",
+                label="📄 PDF Dossier",
+                data=pdf_bytes,
+                file_name=f"{inv_filename}_REPORT.pdf",
+                mime="application/pdf",
                 use_container_width=True
             )
         with d_col2:
             st.download_button(
-                label="📝 Download Text (.txt)",
-                data=txt_content,
-                file_name=f"{inv_filename}_REPORT.txt",
-                mime="text/plain",
-                use_container_width=True
-            )
-        with d_col3:
-            st.download_button(
-                label="📊 Download CSV (.csv)",
-                data=csv_content,
-                file_name=f"{inv_filename}_METRICS.csv",
-                mime="text/csv",
-                use_container_width=True
-            )
-        with d_col4:
-            st.download_button(
-                label="🌐 Download HTML (.html)",
+                label="🌐 HTML Report",
                 data=html_content,
                 file_name=f"{inv_filename}_REPORT.html",
                 mime="text/html",
                 use_container_width=True
             )
+        with d_col3:
+            st.download_button(
+                label="📝 Markdown",
+                data=md_content,
+                file_name=f"{inv_filename}_REPORT.md",
+                mime="text/markdown",
+                use_container_width=True
+            )
+        with d_col4:
+            st.download_button(
+                label="📄 Plain Text",
+                data=txt_content,
+                file_name=f"{inv_filename}_REPORT.txt",
+                mime="text/plain",
+                use_container_width=True
+            )
         with d_col5:
             st.download_button(
-                label="📄 Download PDF (.pdf)",
-                data=pdf_bytes,
-                file_name=f"{inv_filename}_REPORT.pdf",
-                mime="application/pdf",
+                label="📊 CSV Metrics",
+                data=csv_content,
+                file_name=f"{inv_filename}_METRICS.csv",
+                mime="text/csv",
                 use_container_width=True
             )
 

@@ -336,6 +336,8 @@ class SOCDatabase:
         self,
         domain: Optional[str] = None,
         search_query: Optional[str] = None,
+        min_anomaly_score: Optional[float] = None,
+        only_alerts: bool = False,
         limit: int = 25,
         offset: int = 0,
         exclude_simulations: bool = True
@@ -361,20 +363,32 @@ class SOCDatabase:
             conditions.append("(e.event_id LIKE ? OR e.user_identifier LIKE ? OR e.source_ip LIKE ? OR e.raw_json LIKE ?)")
             q = f"%{search_query.strip()}%"
             params.extend([q, q, q, q])
+        if min_anomaly_score is not None:
+            conditions.append("a.anomaly_score >= ?")
+            params.append(float(min_anomaly_score))
+        elif only_alerts:
+            conditions.append("a.alert_id IS NOT NULL")
 
         where_clause = "WHERE " + " AND ".join(conditions) if conditions else ""
 
         with self.get_connection() as conn:
             cursor = conn.cursor()
-            cursor.execute(f"SELECT COUNT(*) as total FROM events e {where_clause}", params)
+            cursor.execute(f"""
+            SELECT COUNT(*) as total 
+            FROM events e 
+            LEFT JOIN alerts a ON e.event_id = a.event_id 
+            {where_clause}
+            """, params)
             total_count = cursor.fetchone()["total"]
+
+            order_clause = "ORDER BY e.timestamp DESC"
 
             cursor.execute(f"""
             SELECT e.*, a.alert_id, a.anomaly_score, a.triage_priority, a.is_uncertain, a.investigation_status
             FROM events e
             LEFT JOIN alerts a ON e.event_id = a.event_id
             {where_clause}
-            ORDER BY e.timestamp DESC
+            {order_clause}
             LIMIT ? OFFSET ?
             """, params + [limit, offset])
 
